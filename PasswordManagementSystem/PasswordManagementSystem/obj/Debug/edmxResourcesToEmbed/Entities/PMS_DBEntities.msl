@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PMSModelStoreContainer" CdmEntityContainer="PMS_DBEntities">
+    <EntitySetMapping Name="Exceptions">
+      <EntityTypeMapping TypeName="PMSModel.Exception">
+        <MappingFragment StoreEntitySet="Exceptions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="actionPerformed" ColumnName="actionPerformed" />
+          <ScalarProperty Name="exceptionCaught" ColumnName="exceptionCaught" />
+          <ScalarProperty Name="exceptionMessage" ColumnName="exceptionMessage" />
+          <ScalarProperty Name="dateRecorded" ColumnName="dateRecorded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spAddException" FunctionName="PMSModel.Store.spAddException" />
+    <EntitySetMapping Name="UserDatas">
+      <EntityTypeMapping TypeName="PMSModel.UserData">
+        <MappingFragment StoreEntitySet="UserData">
+          <ScalarProperty Name="UserRSAEncryptedData" ColumnName="UserRSAEncryptedData" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConfirmationCodes">
+      <EntityTypeMapping TypeName="PMSModel.ConfirmationCode">
+        <MappingFragment StoreEntitySet="ConfirmationCode">
+          <ScalarProperty Name="ConfirmationCode1" ColumnName="ConfirmationCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spAddApplicationAccount" FunctionName="PMSModel.Store.spAddApplicationAccount" />
+    <FunctionImportMapping FunctionImportName="spAddConfirmationCode" FunctionName="PMSModel.Store.spAddConfirmationCode" />
+    <FunctionImportMapping FunctionImportName="spAddUserData" FunctionName="PMSModel.Store.spAddUserData" />
+    <EntitySetMapping Name="AccountsVaults">
+      <EntityTypeMapping TypeName="PMSModel.AccountsVault">
+        <MappingFragment StoreEntitySet="AccountsVault">
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Keys">
+      <EntityTypeMapping TypeName="PMSModel.Key">
+        <MappingFragment StoreEntitySet="Keys">
+          <ScalarProperty Name="PublicKey" ColumnName="PublicKey" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spAddKey" FunctionName="PMSModel.Store.spAddKey" />
+    <FunctionImportMapping FunctionImportName="spUpdateApplicationAccount" FunctionName="PMSModel.Store.spUpdateApplicationAccount" />
+    <FunctionImportMapping FunctionImportName="spUpdateUserData" FunctionName="PMSModel.Store.spUpdateUserData" />
+  </EntityContainerMapping>
+</Mapping>

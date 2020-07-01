@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PMS.dbo.AccountsVault' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AccountsVault">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Application" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ConfirmationCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConfirmationCode" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Exceptions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="actionPerformed" Type="nvarchar" MaxLength="35" />
+          <Property Name="exceptionCaught" Type="nvarchar(max)" />
+          <Property Name="exceptionMessage" Type="nvarchar(max)" />
+          <Property Name="dateRecorded" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublicKey" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRSAEncryptedData" Type="varbinary(max)" />
+        </EntityType>
+        <Function Name="spAddApplicationAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Application" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="spAddConfirmationCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="confirmationCode" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="spAddException" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="actionPerformed" Type="nvarchar" Mode="In" />
+          <Parameter Name="exceptionCaught" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="exceptionMessage" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="dateRecorded" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spAddKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="publicKey" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="spAddUserData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserRSAEncryptedData" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="spDeleteAccountsVaultEntry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTruncateAccountVault" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spUpdateApplicationAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Application" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="spUpdateAppVault" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Application" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="spUpdateUserData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="UserRSAEncryptedData" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="PMSModelStoreContainer">
+          <EntitySet Name="ConfirmationCode" EntityType="Self.ConfirmationCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exceptions" EntityType="Self.Exceptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserData" EntityType="Self.UserData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountsVault" EntityType="Self.AccountsVault" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AccountsVault].[Id] AS [Id], 
+    [AccountsVault].[Application] AS [Application]
+    FROM [dbo].[AccountsVault] AS [AccountsVault]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Exception">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="actionPerformed" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="exceptionCaught" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="exceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateRecorded" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="PMS_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Exceptions" EntityType="Self.Exception" />
+          <FunctionImport Name="spAddException">
+            <Parameter Name="actionPerformed" Mode="In" Type="String" />
+            <Parameter Name="exceptionCaught" Mode="In" Type="String" />
+            <Parameter Name="exceptionMessage" Mode="In" Type="String" />
+            <Parameter Name="dateRecorded" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="UserDatas" EntityType="PMSModel.UserData" />
+          <EntitySet Name="ConfirmationCodes" EntityType="PMSModel.ConfirmationCode" />
+          <FunctionImport Name="spAddApplicationAccount">
+          <Parameter Name="Application" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="spAddConfirmationCode">
+          <Parameter Name="confirmationCode" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="spAddUserData">
+          <Parameter Name="UserRSAEncryptedData" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <EntitySet Name="AccountsVaults" EntityType="PMSModel.AccountsVault" />
+          <EntitySet Name="Keys" EntityType="PMSModel.Key" />
+          <FunctionImport Name="spAddKey">
+          <Parameter Name="publicKey" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateApplicationAccount">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Application" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateUserData">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="UserRSAEncryptedData" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteAccountsVaultEntry">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTruncateAccountVault" />
+          <FunctionImport Name="spUpdateAppVault">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Application" Mode="In" Type="Binary" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="UserData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRSAEncryptedData" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ConfirmationCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConfirmationCode1" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AccountsVault">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Application" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Key">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublicKey" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PMSModelStoreContainer" CdmEntityContainer="PMS_DBEntities">
+          <EntitySetMapping Name="Exceptions">
+            <EntityTypeMapping TypeName="PMSModel.Exception">
+              <MappingFragment StoreEntitySet="Exceptions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="actionPerformed" ColumnName="actionPerformed" />
+                <ScalarProperty Name="exceptionCaught" ColumnName="exceptionCaught" />
+                <ScalarProperty Name="exceptionMessage" ColumnName="exceptionMessage" />
+                <ScalarProperty Name="dateRecorded" ColumnName="dateRecorded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spAddException" FunctionName="PMSModel.Store.spAddException" />
+          <EntitySetMapping Name="UserDatas">
+            <EntityTypeMapping TypeName="PMSModel.UserData">
+              <MappingFragment StoreEntitySet="UserData">
+                <ScalarProperty Name="UserRSAEncryptedData" ColumnName="UserRSAEncryptedData" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConfirmationCodes">
+            <EntityTypeMapping TypeName="PMSModel.ConfirmationCode">
+              <MappingFragment StoreEntitySet="ConfirmationCode">
+                <ScalarProperty Name="ConfirmationCode1" ColumnName="ConfirmationCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spAddApplicationAccount" FunctionName="PMSModel.Store.spAddApplicationAccount" />
+          <FunctionImportMapping FunctionImportName="spAddConfirmationCode" FunctionName="PMSModel.Store.spAddConfirmationCode" />
+          <FunctionImportMapping FunctionImportName="spAddUserData" FunctionName="PMSModel.Store.spAddUserData" />
+          <EntitySetMapping Name="AccountsVaults">
+            <EntityTypeMapping TypeName="PMSModel.AccountsVault">
+              <MappingFragment StoreEntitySet="AccountsVault">
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keys">
+            <EntityTypeMapping TypeName="PMSModel.Key">
+              <MappingFragment StoreEntitySet="Keys">
+                <ScalarProperty Name="PublicKey" ColumnName="PublicKey" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spAddKey" FunctionName="PMSModel.Store.spAddKey" />
+          <FunctionImportMapping FunctionImportName="spUpdateApplicationAccount" FunctionName="PMSModel.Store.spUpdateApplicationAccount" />
+          <FunctionImportMapping FunctionImportName="spUpdateUserData" FunctionName="PMSModel.Store.spUpdateUserData" />
+          <FunctionImportMapping FunctionImportName="spDeleteAccountsVaultEntry" FunctionName="PMSModel.Store.spDeleteAccountsVaultEntry" />
+          <FunctionImportMapping FunctionImportName="spTruncateAccountVault" FunctionName="PMSModel.Store.spTruncateAccountVault" />
+          <FunctionImportMapping FunctionImportName="spUpdateAppVault" FunctionName="PMSModel.Store.spUpdateAppVault" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

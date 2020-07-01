@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PMS.dbo.AccountsVault' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="AccountsVault">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Application" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="ConfirmationCode">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ConfirmationCode" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Exceptions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="actionPerformed" Type="nvarchar" MaxLength="35" />
+    <Property Name="exceptionCaught" Type="nvarchar(max)" />
+    <Property Name="exceptionMessage" Type="nvarchar(max)" />
+    <Property Name="dateRecorded" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Keys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PublicKey" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserRSAEncryptedData" Type="varbinary(max)" />
+  </EntityType>
+  <Function Name="spAddApplicationAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Application" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="spAddConfirmationCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="confirmationCode" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="spAddException" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="actionPerformed" Type="nvarchar" Mode="In" />
+    <Parameter Name="exceptionCaught" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="exceptionMessage" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="dateRecorded" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="spAddKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="publicKey" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="spAddUserData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserRSAEncryptedData" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="spUpdateApplicationAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="Application" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="spUpdateUserData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="UserRSAEncryptedData" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="PMSModelStoreContainer">
+    <EntitySet Name="ConfirmationCode" EntityType="Self.ConfirmationCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exceptions" EntityType="Self.Exceptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserData" EntityType="Self.UserData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AccountsVault" EntityType="Self.AccountsVault" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [AccountsVault].[Id] AS [Id], 
+    [AccountsVault].[Application] AS [Application]
+    FROM [dbo].[AccountsVault] AS [AccountsVault]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

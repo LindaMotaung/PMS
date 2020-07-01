@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Exception">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="actionPerformed" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+    <Property Name="exceptionCaught" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="exceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="dateRecorded" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="PMS_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Exceptions" EntityType="Self.Exception" />
+    <FunctionImport Name="spAddException">
+      <Parameter Name="actionPerformed" Mode="In" Type="String" />
+      <Parameter Name="exceptionCaught" Mode="In" Type="String" />
+      <Parameter Name="exceptionMessage" Mode="In" Type="String" />
+      <Parameter Name="dateRecorded" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="UserDatas" EntityType="PMSModel.UserData" />
+    <EntitySet Name="ConfirmationCodes" EntityType="PMSModel.ConfirmationCode" />
+    <FunctionImport Name="spAddApplicationAccount">
+      <Parameter Name="Application" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="spAddConfirmationCode">
+      <Parameter Name="confirmationCode" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="spAddUserData">
+      <Parameter Name="UserRSAEncryptedData" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <EntitySet Name="AccountsVaults" EntityType="PMSModel.AccountsVault" />
+    <EntitySet Name="Keys" EntityType="PMSModel.Key" />
+    <FunctionImport Name="spAddKey">
+      <Parameter Name="publicKey" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="spUpdateApplicationAccount">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Application" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="spUpdateUserData">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="UserRSAEncryptedData" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="spDeleteAccountsVaultEntry">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spTruncateAccountVault" />
+    <FunctionImport Name="spUpdateAppVault">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Application" Mode="In" Type="Binary" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="UserData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserRSAEncryptedData" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ConfirmationCode">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ConfirmationCode1" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="AccountsVault">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Application" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Key">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PublicKey" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+</Schema>
